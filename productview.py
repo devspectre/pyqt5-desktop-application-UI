@@ -6,7 +6,7 @@ from autotreewidget import AutoTreeWidget
 from clickablelabel import ClickableLabel
 
 class ProductView(QFrame):
-	"""Customized widget derived from QFrame which contains a caption and a treewidget"""
+	""" Customized widget derived from QFrame which contains a caption and a treewidget"""
 	stateChanged = pyqtSignal(int, str)
 
 	def __init__(self, parent = None):
@@ -42,43 +42,43 @@ class ProductView(QFrame):
 		self.layout.addWidget(self.list)
 		self.setLayout(self.layout)
 
-	#show/hide treewidget on caption click
+	# show/hide treewidget on caption click
 	def onCaptionClicked(self):
 		self.caption.setFixedWidth(self.width())
 		#self.caption.setFixedHeight(self.height())
 		self.itemsVisible = not self.itemsVisible
 		self.list.setVisible(self.itemsVisible)
 
-	#emit a signal once an item on treewidget is selected
+	# emit a signal once an item on treewidget is selected
 	def itemClicked(self):
 		self.currentItem = self.list.currentItem().data(0, 0)
 		self.currentId = int(self.list.currentItem().data(1, 0))
-		#emit signal here
+		# emit signal here
 		self.stateChanged.emit(self.currentId, self.currentItem)
 		
-	#add items to the treewidget with a list of strings
+	# add items to the treewidget with a list of strings
 	def addList(self, iList):
 		for i in iList:
 			parent = QTreeWidgetItem(self.list)
 			parent.setText(0, i[0][0])
 			parent.setText(1, i[0][1])
 			parent.setExpanded(True)
-			#parent.setChildIndicatorPolicy(QTreeWidgetItem.DontShowIndicator)
+			# parent.setChildIndicatorPolicy(QTreeWidgetItem.DontShowIndicator)
 			for x in i[1:]:
 				child = QTreeWidgetItem(parent)
 				child.setText(0, x[0])
 				child.setText(1, x[1])
 		self.list.show()
 
-	#set font for caption
+	# set font for caption
 	def setCaptionFont(self, font):
 		self.caption.setFont(font)
 
-	#set font for items on treewidget
+	# set font for items on treewidget
 	def setListFont(self, font):
 		self.list.setFont(font)
 
-	#automatically adjust 
+	# automatically adjust 
 	def autoAdjust(self):
 		self.list.autoAdjust()
 		self.list.setFixedWidth(self.width())

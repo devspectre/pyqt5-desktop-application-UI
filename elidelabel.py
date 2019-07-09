@@ -4,8 +4,9 @@ from PyQt5.QtGui import (QPainter, QFont, QTextLayout)
 from PyQt5.QtWidgets import (QApplication, QFrame, QWidget, QLabel)
 
 class ElideLabel(QLabel):
-	"""A Label widget derived from QLabel and implementing its
-       own paintEvent to prevent text overflowing"""
+	""" A Label widget derived from QLabel and implementing its
+       own paintEvent to prevent text overflowing
+       """
 	def __init__(self, txt = "", parent = None):
 		QLabel.__init__(self, txt, parent)
 
@@ -17,37 +18,37 @@ class ElideLabel(QLabel):
 		self.update()
 
 	def paintEvent(self, event):
-		if self.elideMode == 0:#if not set then behave as a normal label
+		if self.elideMode == 0:# if not set then behave as a normal label
 			QLabel.paintEvent(self, event)
 		else:
 			QFrame.paintEvent(self, event)
 			painter = QPainter(self)
 			painter.setFont(self.font())
 
-			#gets the spacing between lines
+			# gets the spacing between lines
 			lineSpacing = self.fontMetrics().lineSpacing()
 			y = 0
 
 			textLayout = QTextLayout(self.text(), self.font())
 			textLayout.beginLayout()
 
-			#loops  til the end of line
+			# loops  til the end of line
 			while True:
-				#create a line
+				# create a line
 				line = textLayout.createLine()
 
 				if line.isValid() != True:
 					break
 
-				#set limit of line width
+				# set limit of line width
 				line.setLineWidth(self.width())
-				#calculate position of next line
+				# calculate position of next line
 				nextLineY = y + lineSpacing
 
 				if self.height() >= nextLineY + lineSpacing:
 					line.draw(painter, QPoint(0, y))
 					y = nextLineY
-				else:#regenerate each line so that they do not overflow the width of widget
+				else:# regenerate each line so that they do not overflow the width of widget
 					lastLine = self.text()[line.textStart(): len(self.text())]
 					elidedLastLine = self.fontMetrics().elidedText(lastLine, Qt.ElideRight, self.width())
 					painter.drawText(QPoint(0, y + self.fontMetrics().ascent()), elidedLastLine)

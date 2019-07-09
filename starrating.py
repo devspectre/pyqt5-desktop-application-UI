@@ -4,7 +4,7 @@ from PyQt5.QtGui import ( QPixmap, QImage, QPainter)
 from PyQt5.QtCore import (QRectF, Qt, QSize)
 
 class StarRating(QFrame):
-	"""Star rating widget derived from QFrame based on two different images, one for grey stars and one for colored and possessed stars"""
+	""" Star rating widget derived from QFrame based on two different images, one for grey stars and one for colored and possessed stars"""
 	def __init__(self, parent = None):
 		QFrame.__init__(self, parent)
 
@@ -21,22 +21,22 @@ class StarRating(QFrame):
 		self.offImage = offimg
 		self.update()
 
-	#automatically adjust widget size keeping the aspect ratio
+	# automatically adjust widget size keeping the aspect ratio
 	def adjustWidthByHeight(self, ah):
 		pw, ph = self.offImage.width(), self.offImage.height()
 		aw = ah * (pw / ph)
 		self.setFixedSize(aw, ah)
 
-	#set rating and update view
+	# set rating and update view
 	def setRating(self, rating):
 		if rating != self.rating:
 			self.rating = rating
 			self.update()
 
-	#actually draws the stars according to the rating value
+	# actually draws the stars according to the rating value
 	def paintEvent(self, event):
 		painter = QPainter(self)
-		#actually, this does not work at all
+		# actually, this does not work at all
 		painter.setRenderHints(QPainter.Antialiasing|QPainter.SmoothPixmapTransform|QPainter.HighQualityAntialiasing)
 		
 		painter.drawPixmap(QRectF(0, 0, self.width(), self.height()), self.offImage, QRectF(0, 0, self.offImage.width(), self.offImage.height()))

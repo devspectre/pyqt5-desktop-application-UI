@@ -6,15 +6,16 @@ from elidelabel import ElideLabel
 from starrating import StarRating
 from button import Button
 
-#you can define necessary styles here
+# you can define necessary styles here
 class STYLES:
 	STYLE_DEFAULT = "#IconFrame{background: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(0, 165, 255, 25), stop:1 rgba(0, 215, 255, 0));}"
 	STYLE_PINK = "#IconFrame{background: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(255, 20, 147, 25), stop:1 rgba(255, 20, 147, 0));}"
 	STYLE_ORANGE = "#IconFrame{background: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(255, 165, 0, 25), stop:1 rgba(255, 215, 0, 0));}"
 
 class AppCard(QFrame):
-	"""A Card widget derived from QFrame contains app icon, 
-	app name, app developer, app description, app rating, etc"""
+	""" A Card widget derived from QFrame contains app icon, 
+		app name, app developer, app description, app rating, etc
+	"""
 
 	STYLES = STYLES
 	Q_ENUM(STYLES)
@@ -147,8 +148,8 @@ class AppCard(QFrame):
 		self.setAppState(self.appState)
 		self.show()
 
-	#automatically adjust child widgets' sizes based on the frame's geometry
-	#this might affect widgets' sizes
+	# automatically adjust child widgets' sizes based on the frame's geometry
+	# this might affect widgets' sizes
 	def autoAdjust(self):
 		self.starRating.adjustWidthByHeight(self.height()/15)
 		self.feedbackGiven.setFixedHeight(self.height()/16)
@@ -157,17 +158,17 @@ class AppCard(QFrame):
 		mm = self.iconFrame.height() / (5 * 2)
 		self.setIconMargins(mm, mm, mm, mm)
 
-	#set fixed size for the icon, maybe called logo or brand
+	# set fixed size for the icon, maybe called logo or brand
 	def setIconSize(self, aw, ah):
 		self.iconSize = aw, ah
 		self.imgIcon.setFixedSize(self.iconSize[0], self.iconSize[1])
 
-	#set icon margins within the icon frame
+	# set icon margins within the icon frame
 	def setIconMargins(self, ml, mt = 0, mr = 0, mb = 0):
 		self.iconMargins = ml, mt, mr, mb
 		mml, mmt, mmr, mmb = self.mainLayout.getContentsMargins()
 		self.iconLayout.setContentsMargins(mml, mt, mmr, mb)
-	#set icon frame's style, you can stylize background(single color, gradient or image), border, etc
+	# set icon frame's style, you can stylize background(single color, gradient or image), border, etc
 	def setIconFrameStyle(self, style):
 		self.iconFrameStyle = style
 		self.iconFrame.setStyleSheet(self.iconFrameStyle)
@@ -184,7 +185,7 @@ class AppCard(QFrame):
 	def onLaunchClicked(self):
 		QMessageBox.information(None, "ID: " + str(self.appId), "Launch is not ready yet!")
 
-	#set whether the app is already installed or not, accordingly show or hide appropriate buttons
+	# set whether the app is already installed or not, accordingly show or hide appropriate buttons
 	def setAppState(self, state):
 		if state == 0:
 			self.btnInstall.show()
@@ -196,98 +197,98 @@ class AppCard(QFrame):
 			self.btnLaunch.show()
 		self.autoAdjust()
 
-	#return current app state
+	# return current app state
 	def getAppState(self):
 		return self.appState
 
-	#set applicaton name
+	# set applicaton name
 	def setAppName(self, name):
 		if name != self.appName:
 			self.appName = name
 			self.txtName.setText(self.appName)
-	#return application name
+	# eturn application name
 	def getAppName(self):
 		return self.appName
 
-	#set developer name, or could be company name
+	# set developer name, or could be company name
 	def setAppDevName(self, name):
 		if name != self.appDev:
 			self.appDev = name
 			self.txtDev.setText(self.appDev)
 
-	#return developer name
+	# return developer name
 	def getAppDevName(self):
 		return self.appDev
 
-	#set description about application
+	# et description about application
 	def setAppDesc(self, desc):
 		if desc != self.appDesc:
 			self.appDesc = desc
 			self.txtDesc.setText(self.appDesc)
 
-	#return description of application
+	# return description of application
 	def getAppDesc(self):
 		return self.appDesc
 
-	#set application icon with appropriate file path
+	# set application icon with appropriate file path
 	def setAppIcon(self, imgPath):
 		if imgPath != self.appIcon:
 			self.appIcon = imgPath
 			self.imgIcon.setPixmap(QPixmap(self.appIcon))
 
-	#return QPixmap of icon
+	# return QPixmap of icon
 	def getAppIconPixmap(self):
 		return QPixmap(self.appIcon)
 
-	#return path to icon
+	# return path to icon
 	def getAppIconPath(self):
 		return self.appIcon
 
-	#set applicaiton star rating and count of given feedbacks
+	# set applicaiton star rating and count of given feedbacks
 	def setAppRating(self, rating, feedback):
 		if rating != self.appRating or feedback != self.appFeedback:
 			self.appRating, self.appFeedback = rating, feedback
 			self.starRating.setRating(rating)
 			self.feedbackGiven.setText("(" + str(feedback) + ")")
 
-	#return star rating value and the count of given feedbacks
+	# return star rating value and the count of given feedbacks
 	def getAppRating(self):
 		return (self.appRating, self.appFeedback)
 
-	#set path to background would be embedded into stylesheet string
+	# set path to background would be embedded into stylesheet string
 	def setBackgroundImage(self, img):
 		self.appBack = img
 		self.setStyleSheet("#Card{" + self.style_str + " background-image: url(" + self.appBack + ")}")
 
-	#set application ID
+	# set application ID
 	def setAppId(self, id):
 		self.appId = id
 
-	#return app ID
+	# return app ID
 	def getAppId(self):
 		return self.appId
 
-	#set blur radius of frame's shadow effect
+	# set blur radius of frame's shadow effect
 	def setShadowBlurRadius(self, radius):
 		self.shadowEffect.setBlurRadius(radius)
 
-	#set shadow offset of frame's shadow effect
+	# set shadow offset of frame's shadow effect
 	def setShadowOffset(self, offX, offY):
 		self.shadowEffect.setOffset(offX, offY)
 
-	#set shadow color of frame's shadow effect
+	# set shadow color of frame's shadow effect
 	def setShadowColor(self, color):
 		self.shadowEffect.setColor(color)
 
-	#set font of application name
+	# set font of application name
 	def setAppNameFont(self, font):
 		self.txtName.setFont(font)
 
-	#set font of developer name
+	# set font of developer name
 	def setAppDevFont(self, font):
 		self.txtDev.setFont(font)
 
-	#set font of description to the app
+	# set font of description to the app
 	def setAppDescFont(self, font):
 		self.txtDesc.setFont(font);
 

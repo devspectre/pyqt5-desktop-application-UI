@@ -3,14 +3,14 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
-#types for customzied buttons
+# types for customzied buttons
 class BUTTON_TYPE:
 	INSTALL = 0
 	DELETE = 1
 	LAUNCH = 2
 	ALL = 3
 
-#predefined styles to stylize the button
+# predefined styles to stylize the button
 class BUTTON_STYLE:
 	INSTALL = "#Button{color: white;background: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(15, 157, 88, 255), stop:1 rgba(55, 157, 88, 225)); border-radius: 3px; padding: 5px 25px 5px 25px}"
 	INSTALL_HOVER = "#Button{color: white;background: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(15, 175, 88, 255), stop:1 rgba(55, 175, 88, 225)); border-radius: 3px; padding: 5px 25px 5px 25px}"
@@ -26,7 +26,8 @@ class BUTTON_STYLE:
 	ALL_DOWN = "#Button{color: white;background: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(17, 194, 245, 255), stop:1 rgba(17, 194, 245, 255)); border-radius: 3px; padding: 5px 5px 5px 5px}"
 
 class Button(QPushButton):
-	"""Button with customized styles"""
+	""" Button with customized styles """
+
 	BUTTON_TYPE = BUTTON_TYPE
 	Q_ENUM(BUTTON_TYPE)
 
@@ -50,12 +51,12 @@ class Button(QPushButton):
 		self.setFont(QFont("Roboto", 10, QFont.Bold))
 		self.setCustomStyle()
 
-	#set the button type to install, delete and all
+	# set the button type to install, delete and all
 	def setButtonType(self, newtype):
 		self.type = newtype
 		self.setCustomStyle()
 
-	#set custmoized styles according to the button types
+	# set custmoized styles according to the button types
 	def setCustomStyle(self):
 		if self.type == BUTTON_TYPE.INSTALL:
 			self.setStyleSheet(BUTTON_STYLE.INSTALL)
@@ -68,13 +69,13 @@ class Button(QPushButton):
 
 		self.setText(self.text().upper())
 
-	#show/hide shadow
+	# show/hide shadow
 	def setShadowEnabled(self, flag):
 		self.shadow = flag
 		self.shadowEffect.setEnabled(self.shadow)
 		self.setCustomStyle()
 
-	#button effect
+	# button effect
 	def enterEvent(self,event):
 		if self.type == BUTTON_TYPE.INSTALL:
 			self.setStyleSheet(BUTTON_STYLE.INSTALL_HOVER)
@@ -85,7 +86,7 @@ class Button(QPushButton):
 		elif self.type == BUTTON_TYPE.ALL:
 			self.setStyleSheet(BUTTON_STYLE.ALL_HOVER)
 
-	#button effect
+	# button effect
 	def leaveEvent(self,event):
 		if self.type == BUTTON_TYPE.INSTALL:
 			self.setStyleSheet(BUTTON_STYLE.INSTALL)
@@ -99,7 +100,7 @@ class Button(QPushButton):
 		if self.shadow:
 			self.shadowEffect.setEnabled(True)
 
-	#button effect
+	# button effect
 	def mousePressEvent(self, event):
 		QPushButton.mousePressEvent(self, event)
 		if self.type == BUTTON_TYPE.INSTALL:
@@ -115,7 +116,7 @@ class Button(QPushButton):
 			self.shadowEffect.setEnabled(False)
 		
 
-	#button effect
+	# utton effect
 	def mouseReleaseEvent(self, event):
 		QPushButton.mouseReleaseEvent(self, event)	
 		if self.type == BUTTON_TYPE.INSTALL:

@@ -6,7 +6,7 @@ from appcard import AppCard
 from button import Button
 
 class CardFrame(QFrame):
-	"""CardFrame widget derived from QFrame which contains category caption,<See All> button, and lots of cards"""
+	""" CardFrame widget derived from QFrame which contains category caption,<See All> button, and lots of cards"""
 	def __init__(self, parent=None):
 		QFrame.__init__(self, parent)
 
@@ -17,11 +17,11 @@ class CardFrame(QFrame):
 		self.setObjectName("CardFrame")
 		self.setStyleSheet("#CardFrame{background-color: white;}")
 
-		#Category name for the frame
+		# Category name for the frame
 		self.caption = QLabel("Web apps", self)
 		self.caption.setFont(QFont("Roboto", 16, QFont.Bold))
 
-		#Button to show/hide cards
+		# Button to show/hide cards
 		self.btnAll = Button("See all", self)
 		self.btnAll.setButtonType(Button.BUTTON_TYPE.ALL)
 		self.btnAll.clicked.connect(self.onSeeAll)
@@ -48,8 +48,8 @@ class CardFrame(QFrame):
 		self.mainLayout.addLayout(self.headerLayout)
 		self.mainLayout.addLayout(self.cardLayout)
 
-	#method for adding app cards to the frame itself
-	#Note: Be carefull to set the app ID so that it won't be repeated.
+	# method for adding app cards to the frame itself
+	# Note: Be carefull to set the app ID so that it won't be repeated.
 	def addNewApp(self, appid, appname, icon = "default", background = "default", devname = "Unknown", desc = "Undefined", rating = 0, feedback = 0, state = 0):
 		tmpCard = AppCard(self)
 		tmpCard.setAutoFillBackground(True)
@@ -77,34 +77,34 @@ class CardFrame(QFrame):
 		self.cardList.append(tmpCard)
 		self.updateSeeAllButtonState()
 
-	#please make sure you are not duplicating with the same AppCard.appId
+	# please make sure you are not duplicating with the same AppCard.appId
 	def addCard(self, card):
 		row, col = len(self.cardList) / self.maxColCount, len(self.cardList) % self.maxColCount
 		self.cardLayout.addWidget(card, row, col)
 		self.cardList.append(card)
 		self.updateSeeAllButtonState()
 
-	#show or hide "See all" button
+	# show or hide "See all" button
 	def updateSeeAllButtonState(self):
 		if len(self.cardList) >= self.maxColCount:
 			self.btnAll.show()
 		else:
 			self.btnAll.hide()
 
-	#set category text of the frame
+	# set category text of the frame
 	def setCaption(self, text):
 		self.caption.setText(text)
 
 	def setCaptionFont(self, font):
 		self.caption.setFont(font)
 
-	#remove app card by its name
+	# remove app card by its name
 	def removeApp(self, appname):
 		for eCard in self.cardList:
 			if eCard.getAppName == appname:
 				self.cardList.remove(eCard)
 
-	#automatically adjust column count of grid layout due to the frame width
+	# automatically adjust column count of grid layout due to the frame width
 	def autoAdjust(self):
 		if len(self.cardList) > 0:
 			recColCount = int(self.width() / self.cardList[0].width()) - 1
@@ -120,7 +120,7 @@ class CardFrame(QFrame):
 				hspacing = ((self.width() - ml - mr - hl - hr) - self.cardList[0].width() * self.maxColCount) / (self.maxColCount - 1)
 				self.cardLayout.setHorizontalSpacing(hspacing)
 
-	#set column count of grid layout to count
+	# set column count of grid layout to count
 	def setColumnCount(self, count):
 		self.maxColCount = count
 		self.updateSeeAllButtonState()
@@ -144,13 +144,13 @@ class CardFrame(QFrame):
 		for iCard in self.cardList:
 			iCard.setAppDescFont(font)
 
-	#slot for button click
+	# slot for button click
 	@pyqtSlot()
 	def onSeeAll(self):
 		self.setSeeAll()
 		self.seeAll = not self.seeAll
 
-	#show or hide app cards on button click
+	# show or hide app cards on button click
 	def setSeeAll(self):
 		col = self.cardLayout.columnCount()
 		if not self.seeAll:
@@ -161,7 +161,7 @@ class CardFrame(QFrame):
 			self.btnAll.setText("SEE ALL")
 			for index in range(col, len(self.cardList)):
 				self.cardList[index].hide()
-	#overrided method
+	# overrided method
 	def resizeEvent(self, event):
 		QFrame.resizeEvent(self, event)
 		self.autoAdjust()

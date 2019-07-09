@@ -7,13 +7,13 @@ from idcheckbox import IDCheckBox
 from elidelabel import ElideLabel
 from clickablelabel import ClickableLabel
 
-#state enums
+# state enums
 class CHECK_STATE:
 	UNCHECKED = 0
 	CHECKED = 1
 
 class CheckList(QFrame):
-	"""Checklist derived from QFrame which contains Filter Category as its caption and list of checkable items"""
+	""" Checklist derived from QFrame which contains Filter Category as its caption and list of checkable items"""
 	stateChanged = pyqtSignal(int, int)
 	def __init__(self, parent = None):
 		QFrame.__init__(self, parent)
@@ -46,12 +46,12 @@ class CheckList(QFrame):
 		self.mainLayout.addWidget(self.caption)
 		self.mainLayout.addWidget(self.listFrame)
 
-	#emit a signal with two params when any checkable item is changed by state
+	# emit a signal with two params when any checkable item is changed by state
 	@pyqtSlot(int, int)
 	def onItemStateChanged(self, cid, cstate):
 		self.stateChanged.emit(cid, cstate)
 
-	#show or hide all checkable items on caption click
+	# show or hide all checkable items on caption click
 	@pyqtSlot()
 	def onCaptionClicked(self):
 		self.caption.setFixedWidth(self.width())
@@ -62,7 +62,7 @@ class CheckList(QFrame):
 		else:
 			self.listFrame.hide()
 
-	#add an item with its id and text
+	# add an item with its id and text
 	def addNewItem(self, newid, text = "Undefined"):
 		newItem = IDCheckBox(text, self, newid)
 		newItem.setFont(self.listFont)
@@ -70,42 +70,42 @@ class CheckList(QFrame):
 		self.list.append(newItem)
 		self.listLayout.addWidget(newItem)
 
-	#read from a list and add items
+	# read from a list and add items
 	def addList(self, ilist):
 		for i in ilist:
 			self.addNewItem(int(i[1]), str(i[0]))
 
-	#remove items by id
+	# remove items by id
 	def removeItemById(self, id):
 		for item in self.list:
 			if item.getID() == id:
 				list.remove(item)
 
-	#remove items by text
+	# remove items by text
 	def removeItemByText(self, text):
 		for item in self.list:
 			if item.text() == text:
 				list.remove(item)
 
-	#set filter category caption
+	# set filter category caption
 	def setCaption(self, cap):
 		self.caption.setText(cap)
 
-	#return filter category caption
+	# return filter category caption
 	def getCaption(self):
 		return self.caption.text()
 
-	#set font of caption
+	# set font of caption
 	def setCaptionFont(self, font):
 		self.caption.setFont(font)
 
-	#set font of checkable items
+	# set font of checkable items
 	def setListFont(self, font):
 		self.listFont = font
 		for item in self.list:
 			item.setFont(self.listFont)
 
-	#note: call after setListFont
+	# note: call after setListFont
 	def getMaximumItemWidth(self):
 		maxWidth = 0
 		for item in self.list:
@@ -114,7 +114,7 @@ class CheckList(QFrame):
 		#print(maxWidth)
 		return maxWidth
 
-	#note: call after setListFont
+	# note: call after setListFont
 	def autoAdjust(self):
 		ml, mt, mr, mb = self.mainLayout.getContentsMargins()
 		msp = self.mainLayout.spacing()

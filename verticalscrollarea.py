@@ -3,7 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
-#styles for customized vertical scroll bar
+# styles for customized vertical scroll bar
 class VSCROLL_STYLE:
 	THIN = """
 		QScrollBar:vertical {
@@ -176,7 +176,7 @@ class VSCROLL_STYLE:
         }"""
 
 class VerticalScrollArea(QScrollArea):
-	"""Scroll area derived from QScrollArea only shows vertical scroll bar
+	""" Scroll area derived from QScrollArea only shows vertical scroll bar
 		width must be adjusted to fit the screen resolution"""
 	VSCROLL_STYLE = VSCROLL_STYLE
 	Q_ENUM(VSCROLL_STYLE)
@@ -190,12 +190,12 @@ class VerticalScrollArea(QScrollArea):
 		self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
 		self.verticalScrollBar().setStyleSheet(self.style)
 
-	#set scroll bar style
+	# set scroll bar style
 	def setStyle(self, newstyle):
 		self.style = newstyle
 		self.setStyleSheet(self.style)
 
-	#calculate exact minimum width within the area and set it
+	# calculate exact minimum width within the area and set it
 	def eventFilter(self, object, event):
 		if object is not None:
 			if object == self.widget():

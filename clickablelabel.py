@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtCore import pyqtSignal, pyqtSlot
 
 class ClickableLabel(QLabel):
-	"""A widget derived from QLabel for category or filter caption and is clickable"""
+	""" A widget derived from QLabel for category or filter caption and is clickable"""
 	clicked = pyqtSignal()
 	def __init__(self, text = "", parent = None):
 		QLabel.__init__(self, text, parent)
@@ -12,12 +12,12 @@ class ClickableLabel(QLabel):
 		self.setStyleSheet("""#Caption{color: #ff8c00; background-color: #e7e7e7}
 			#Caption:hover{background-color: #d7d7d7}""")
 
-	#override mousePressEvent
+	# override mousePressEvent
 	def mousePressEvent(self, event):
 		QLabel.mousePressEvent(self, event)
 		self.pressed = True
 
-	#override mouseReleaseEvent
+	# override mouseReleaseEvent
 	def mouseReleaseEvent(self, event):
 		QLabel.mouseReleaseEvent(self, event)
 		if self.pressed:

@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QCheckBox, QStyle
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
 
 class IDCheckBox(QCheckBox):
-	"""Checkbox derived from QCheckBox which emits both its ID and current state"""
+	""" Checkbox derived from QCheckBox which emits both its ID and current state"""
 	stateChangedOnItem = pyqtSignal(int, int)
 	
 	@pyqtSlot(int)
@@ -33,15 +33,15 @@ class IDCheckBox(QCheckBox):
 		if newid != self.id:
 			self.id = newid
 
-	#to prevent text overflowing
+	# to prevent text overflowing
 	def setElideMode(self, mode):
 		self.elideMode = mode
 
-	#return current elide mode
+	# return current elide mode
 	def getElideMode(self):
 		return self.elideMode
 
-	#set text font and elide the text
+	# set text font and elide the text
 	def setFont(self, font):
 		QCheckBox.setFont(self, font)
 		if self.elideMode == 1:
@@ -51,7 +51,7 @@ class IDCheckBox(QCheckBox):
 			self.setText(self.textOrg)
 		self.autoAdjust()
 
-	#adjust widget size
+	# adjust widget size
 	def autoAdjust(self):
 		ml, mt, mr, mb = self.getContentsMargins()
 		recommendWidth = self.fontMetrics().width(self.text()) + 10 + ml + mr + QStyle.PM_IndicatorWidth
